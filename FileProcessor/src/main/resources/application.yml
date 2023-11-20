@@ -1,0 +1,9 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: javainuse
+app:
+  name: java
+test-source-file-path: E://Learning/Java/spaceCollection/springboot-all/FileProcessor/sourceFiles/test.csv
+test-destination-file-path: E://Learning/Java/spaceCollection/springboot-all/FileProcessor/sharedStorage/test.csv
