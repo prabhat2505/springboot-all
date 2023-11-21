@@ -10,6 +10,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.io.File;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @RestController
@@ -47,4 +54,29 @@ public class CsvController {
 //        FileUtility.moveFile(testSourceFilePath,testDestinationFilePath);
 //        return "data";
 //    }
+    @GetMapping("createDirectory")
+    public void createDirectory() throws IOException {
+//        private final String FILE_NAME = "src/test/resources/sourceFiles/test.csv";
+//        private final String SHARED_STORAGE = "src/test/resources/sharedStorage/test.csv";
+        String sourceDirectoryName = "src/sourceFiles";
+        Path dirPath = Paths.get(sourceDirectoryName);
+        if (!Files.exists(dirPath)) {
+            Files.createDirectory(dirPath);
+        }
+        String destinationDirectoryName = "src/sharedStorage";
+        Path destinationDirectoryPath = Paths.get(destinationDirectoryName);
+        if (!Files.exists(destinationDirectoryPath)) {
+            Files.createDirectory(destinationDirectoryPath);
+        }
+//        File file = new File(sourceDirectoryName);
+//        if (!file.exists()) { // create directory only if directory doesn't exists
+//            if (file.mkdir()) {
+//                System.out.println("created successfully");
+//            } else {
+//                System.out.println(" creation failed");
+//            }
+//        } else {
+//            System.out.println(" already exists");
+//        }
+    }
 }

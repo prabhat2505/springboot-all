@@ -5,18 +5,34 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.assertj.core.api.Assertions.*;
 import dataprocessor.FileProcessor.mockdata.MockCsvGenerator;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.io.*;
 import java.util.List;
-
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @SpringBootTest
 public class FileUtilityTests {
-    private final String FILE_NAME = "src/test/resources/sourceFiles/test.csv";
-    private final String SHARED_STORAGE = "src/test/resources/sharedStorage/test.csv";
+    private final String FILE_NAME = "src/test/sourceFiles/test.csv";
+    private final String SHARED_STORAGE = "src/test/sharedStorage/test.csv";
+    @BeforeAll
+    public static void createDirectory() throws IOException {
+        String sourceDirectoryName = "src/test/sourceFiles/";
+        Path dirPath = Paths.get(sourceDirectoryName);
+        if (!Files.exists(dirPath)) {
+            Files.createDirectory(dirPath);
+        }
+        String destinationDirectoryName = "src/test/sharedStorage/";
+        Path destinationDirectoryPath = Paths.get(destinationDirectoryName);
+        if (!Files.exists(destinationDirectoryPath)) {
+            Files.createDirectory(destinationDirectoryPath);
+        }
+    }
     @BeforeEach
     @AfterEach
     public void cleanUpFile() {
@@ -25,6 +41,7 @@ public class FileUtilityTests {
         File sharedStoareg = new File(SHARED_STORAGE);
         sharedStoareg.delete();
     }
+
 
     @Test
     public void givenNoSourceFile_whenMoving_thenThrowFileNotFoundException()  {
