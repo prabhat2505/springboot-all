@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -47,13 +48,13 @@ public class CsvController {
          return "port"+testSourceFilePath;
 
     }
-//    @GetMapping("moveFile")
-//    public String moveFile(){
-////        String source = appConfig.getTestSourceFilePath();
-////        String destination = appConfig.getTestDestinationFilePath();
-//        FileUtility.moveFile(testSourceFilePath,testDestinationFilePath);
-//        return "data";
-//    }
+    @GetMapping("moveFile")
+    public String moveFile() throws IOException {
+//        String source = appConfig.getTestSourceFilePath();
+//        String destination = appConfig.getTestDestinationFilePath();
+        FileUtility.moveFile(testSourceFilePath,testDestinationFilePath);
+        return "data";
+    }
     @GetMapping("createDirectory")
     public void createDirectory() throws IOException {
 //        private final String FILE_NAME = "src/test/resources/sourceFiles/test.csv";
@@ -68,15 +69,5 @@ public class CsvController {
         if (!Files.exists(destinationDirectoryPath)) {
             Files.createDirectory(destinationDirectoryPath);
         }
-//        File file = new File(sourceDirectoryName);
-//        if (!file.exists()) { // create directory only if directory doesn't exists
-//            if (file.mkdir()) {
-//                System.out.println("created successfully");
-//            } else {
-//                System.out.println(" creation failed");
-//            }
-//        } else {
-//            System.out.println(" already exists");
-//        }
     }
 }
